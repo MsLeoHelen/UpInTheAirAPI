@@ -148,10 +148,13 @@ app.post('/api/create_wish', (req, res) =>
     (async () => {
         try{
             // await db.collection('wishes').doc('/' + req.body.id + '/')
-            await db.collection('wishes').doc()
+            await db.collection('wishes')
+            .doc(req.body.login + '_' + req.body.id)
             .create({
                 name: req.body.name,
-                description: req.body.description
+                description: req.body.description,
+                login: req.body.login,
+                id: req.body.id
             })
 
             return res.status(200).send();
@@ -224,7 +227,9 @@ app.put('/api/update_wish/:id', (req, res) =>
 
             await document.update({
                 name: req.body.name,
-                description: req.body.description
+                description: req.body.description,
+                login: req.body.login,
+                id: req.body.id
             })
 
             return res.status(200).send();
